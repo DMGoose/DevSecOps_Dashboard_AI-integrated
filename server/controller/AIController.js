@@ -7,7 +7,9 @@ const client = new OpenAI({
 });
 
 module.exports.getSuggestions = async (req, res, next) => {
+    console.log('Loaded API key:', process.env.OPENROUTER_API_KEY ? '[OK]' : '[MISSING]');
     try {
+        
         const { prompt } = req.body;
         console.log('收到前端数据：', prompt);
 

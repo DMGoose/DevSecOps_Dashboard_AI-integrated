@@ -5,7 +5,7 @@ function ChooseRepo({ onRepoSelected }) {
   const [error, setError] = useState(null);
 
   const handleLoad = async () => {
-    const url = `https://raw.githubusercontent.com/${repo}/main/merged-security-reports.json`;
+    const url = `https://raw.githubusercontent.com/${repo}/main/report-template/public/data/merged-security-reports.json`;
     try {
       const res = await fetch(url);
       if (!res.ok) throw new Error('Report not found, the repository does not exist or the file path is wrong');

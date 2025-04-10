@@ -6,35 +6,36 @@ import OverviewCards from '../components/OverviewCards';
 import AlertSummaryTable from '../components/AlertSummaryTable';
 import AlertsGrid from '../components/AlertsGrid';
 
-function Home() {
+function Home({reportData, repo}) {
 
-    const [reportData, setReportData] = useState([]);
-    const rawUrl = 'https://raw.githubusercontent.com/DMGoose/DVWA-T/main/report-template/public/data/merged-security-reports.json'
+    // const [reportData, setReportData] = useState([]);
 
+    // const repo = 'DMGoose/DVWA-T';
+    // const rawUrl = `https://raw.githubusercontent.com/${repo}/main/merged-security-reports.json`;
 
-    useEffect(() => {
-        const controller = new AbortController();
-        const fetchData = async () => {
-            try {
-                const res = await fetch(rawUrl, { signal: controller.signal });
-                if (!res.ok) {
-                    throw new Error(`HTTP error! status: ${res.status}`);
-                }
-                const data = await res.json();
-                setReportData(data);
-            }
-            catch(err){
-                if (err.name !== 'AbortError') {
-                    console.error('Failed to load JSON:', err.message);
-                }
-            }
-        };
-        fetchData();
+    // useEffect(() => {
+    //     const controller = new AbortController();
+    //     const fetchData = async () => {
+    //         try {
+    //             const res = await fetch(rawUrl, { signal: controller.signal });
+    //             if (!res.ok) {
+    //                 throw new Error(`HTTP error! status: ${res.status}`);
+    //             }
+    //             const data = await res.json();
+    //             setReportData(data);
+    //         }
+    //         catch(err){
+    //             if (err.name !== 'AbortError') {
+    //                 console.error('Failed to load JSON:', err.message);
+    //             }
+    //         }
+    //     };
+    //     fetchData();
 
-        return () => {
-            controller.abort(); // 清理请求
-        }
-    }, []);
+    //     return () => {
+    //         controller.abort(); // 清理请求
+    //     }
+    // }, []);
 
     // //在 Home.jsx 中把数据保存到 localStorage
     // useEffect(() => {

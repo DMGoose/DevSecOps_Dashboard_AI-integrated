@@ -32,8 +32,8 @@ module.exports.getSuggestions = async (req, res, next) => {
                 headers: {
                     'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
                     'Content-Type': 'application/json',
-                    "HTTP-Referer": "https://dev-sec-ops-dashboard-ai-integrated.vercel.app/", // Optional. Site URL for rankings on openrouter.ai.
-                    "X-Title": "DevSecOps Dashboard AI", // Optional. Site title for rankings on openrouter.ai.
+                    // "HTTP-Referer": "https://dev-sec-ops-dashboard-ai-integrated.vercel.app/", // Optional. Site URL for rankings on openrouter.ai.
+                    // "X-Title": "DevSecOps Dashboard AI", // Optional. Site title for rankings on openrouter.ai.
                 }
             }
         );

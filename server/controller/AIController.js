@@ -1,5 +1,6 @@
 const OpenAI = require("openai");
 require('dotenv').config();
+const axios = require('axios');
 
 module.exports.getSuggestions = async (req, res, next) => {
     console.log('Loaded API key:', process.env.OPENROUTER_API_KEY ? '[OK]' : '[MISSING]');
@@ -35,7 +36,7 @@ module.exports.getSuggestions = async (req, res, next) => {
         );
 
         console.log("这是API返回来的response",response);
-        
+
         res.json({
             suggestion: response.data.choices[0]?.message?.content || '生成失败'
         });

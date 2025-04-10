@@ -3,7 +3,8 @@ require('dotenv').config();
 const axios = require('axios');
 
 module.exports.getSuggestions = async (req, res, next) => {
-    console.log('Loaded API key:', process.env.OPENROUTER_API_KEY ? '[OK]' : '[MISSING]');
+    console.log('Key length:', process.env.OPENROUTER_API_KEY?.length);
+    console.log('Key preview:', process.env.OPENROUTER_API_KEY?.slice(0, 10) + '...');
     try {
 
         const { prompt } = req.body;

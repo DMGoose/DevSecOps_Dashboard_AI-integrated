@@ -15,7 +15,7 @@ module.exports.getSuggestions = async (req, res, next) => {
         const response = await axios.post(
             'https://openrouter.ai/api/v1/chat/completions',
             {
-                model,
+                model:'google/gemma-3-4b-it:free',
                 messages: [
                     {
                         role: 'user',
@@ -31,7 +31,9 @@ module.exports.getSuggestions = async (req, res, next) => {
             {
                 headers: {
                     'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    "HTTP-Referer": "https://dev-sec-ops-dashboard-ai-integrated.vercel.app/", // Optional. Site URL for rankings on openrouter.ai.
+                    "X-Title": "DevSecOps Dashboard AI", // Optional. Site title for rankings on openrouter.ai.
                 }
             }
         );

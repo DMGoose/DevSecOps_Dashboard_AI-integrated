@@ -1,3 +1,3 @@
 // API Routes
-export const host = "http://localhost:5000";
+export const host = "https://devsecops-dashboard-ai-integrated.onrender.com";
 export const getSuggestions = `${host}/api/getSuggestions`

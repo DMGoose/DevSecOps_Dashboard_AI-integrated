@@ -1,8 +1,9 @@
-import React, { Component, useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import styled from "styled-components"
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import { getSuggestions } from "../utils/APIRoutes";
+import ExpandableText from './ExpandableText';
+import FixSuggestion from './FixSuggestion';
 
 function AlertsGrid({ data }) {
 
@@ -75,16 +76,23 @@ function AlertsGrid({ data }) {
     setSortOrder(prev => (prev === 'desc' ? 'asc' : 'desc'));
   }
 
+  
+  useEffect(()=>{
+    console.log("@@@我是Alers Grid里的data",data);
+    console.log("selected Alerts",selectedAlert);
+  },[])
+
   //activeTool默认选择第一个工具
   useEffect(() => {
     if (data.length > 0) {
       setActiveTool(data[0].tool);
+      console.log("@active tool", activeTool);
     }
-  }, [data]);
+  }, []);
 
   //生成AI建议, 和后端交互
   const generateSuggestion = async (selectedAlert) => {
-    console.log('generateSuggestion is working!@')
+    console.log('generateSuggestion is working!! at AlertsGrids')
     setSelectedAlert({ ...selectedAlert, loading: true });
     const prompt = promptGenerateTemplate(selectedAlert);
 
@@ -110,7 +118,7 @@ function AlertsGrid({ data }) {
       Description ：${selectedAlert.description || 'unknown'}
       Remediation：${selectedAlert.remediation || selectedAlert.solution || 'unknown'}
       CWE: ${selectedAlert.cwe || 'unknown'}
-    Only return a one-sentence fix recommendation in plain English.
+      Only return a one-sentence fix recommendation in plain English.
       `
   }
 
@@ -129,7 +137,7 @@ function AlertsGrid({ data }) {
     <Container>
       <Tools>
         {tools.map((item, index) => (
-          <ToolButton key={index} onClick={() => setActiveTool(item)} active={item == activeTool}>
+          <ToolButton key={index} onClick={() => setActiveTool(item)} active={item === activeTool}>
             {item}
           </ToolButton>
         ))}
@@ -159,8 +167,8 @@ function AlertsGrid({ data }) {
             onClick={() => setSelectedAlert(result)}
           >
             <Cell>{result.type}</Cell>
-            <Cell>{result.name || result.cve}</Cell>
-            <Cell>{result.component || result.cwe}</Cell>
+            <Cell>{result.name || result.cve || result.rule_id}</Cell>
+            <Cell>{result.component || result.cwe || result.file}</Cell>
             <Cell>{displaySeverity(result.risk || result.severity)}</Cell>
           </AlertRow>
         ))}
@@ -171,26 +179,29 @@ function AlertsGrid({ data }) {
           <Modal onClick={(e) => e.stopPropagation()}>
             <CloseBtn onClick={() => setSelectedAlert(null)}>✖</CloseBtn>
             <h2>{selectedAlert.name || selectedAlert.cve || 'Unnamed Alert'}</h2>
-            <p><strong>Type:</strong> {selectedAlert.type}</p>
-            <p><strong>CVE:</strong> {selectedAlert.cve}</p>
-            <p><strong>Severity:</strong> {selectedAlert.risk || selectedAlert.severity}</p>
+            <p><strong>Type:</strong> {selectedAlert.type || '-'}</p>
+            <p><strong>CVE:</strong> {selectedAlert.cve || '-'}</p>
+            <p><strong>Severity:</strong> {selectedAlert.risk || selectedAlert.severity || '-'}</p>
             {selectedAlert.component ?
               <div><strong>Component:</strong> {selectedAlert.component}</div> :
               <div><strong>Evidence:</strong> {selectedAlert.evidence || '-'}</div>
             }
-            <p><strong>Description:</strong> {selectedAlert.description}</p>
-            <p><strong>Remediation:</strong> {selectedAlert.solution || selectedAlert.remediation}</p>
-            <p><strong>Reference:</strong> <a href={selectedAlert.reference || selectedAlert.uri}>{selectedAlert.reference || selectedAlert.uri}</a></p>
+            <p><strong>Description:</strong></p>
+              <ExpandableText text={selectedAlert.description || selectedAlert.message}/>
+            <p><strong>Remediation:</strong></p>
+              <ExpandableText text={selectedAlert.solution || selectedAlert.remediation }/>
+            <p><strong>Reference:</strong> <a href={selectedAlert.reference || selectedAlert.uri}>{selectedAlert.reference || selectedAlert.uri || '-'}</a></p>
 
             {!selectedAlert.suggestion && (
-              <AskButton onClick={() => generateSuggestion(selectedAlert)}> 🧠 Generate Fix Suggestion </AskButton>
+              <AskButton onClick={() => generateSuggestion(selectedAlert)}> 🧠 Generate Fix Suggestion 🧠</AskButton>
             )}
 
             {selectedAlert.loading && <p>Generating suggestion...</p>}
 
             {selectedAlert.suggestion && (
               <SuggestionBox>
-                <p>{selectedAlert.suggestion}</p>
+                <FixSuggestion suggestion={selectedAlert.suggestion} />
+                <p>{}</p>
               </SuggestionBox>
               
             )}
@@ -239,7 +250,7 @@ const DataList = styled.div`
 
 const HeaderRow = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1.5fr 1fr 1fr ;
+  grid-template-columns: 1fr 1fr 1.2fr 1fr ;
   font-weight: bold;
   background: #f3f3f3;
   padding: 10px 16px;
@@ -248,7 +259,7 @@ const HeaderRow = styled.div`
 
 const AlertRow = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1.5fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1.2fr 1fr;
   padding: 10px 12px;
   background-color: ${({ severity }) => {
     switch (severity) {
@@ -359,15 +370,42 @@ const FilterBtn = styled.button`
 
 const AskButton = styled.button`
 padding-left: 5px;
-  background: transparent;
-  border: none;
-  font-size: 20px;
+  background-color: transparent;
+  border: 1px solid #ddd;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 15px;
+  color: #333;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
   cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background-color: #f5f5f5;
+    border-color: #ccc;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
 `
 
 const SuggestionBox = styled.div`
-background:red;
-`
+  background-color: #f9f9f9;
+//   border: 1px solid #ddd;
+//   border-radius: 8px;
+//   padding: 12px 16px;
+//   margin-top: 10px;
+//   font-size: 15px;
+//   color: #333;
+//   line-height: 1.6;
+//   white-space: pre-wrap;
+//   box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+// `
   ;
 
 export default AlertsGrid;

@@ -6,7 +6,7 @@ import OverviewCards from '../components/OverviewCards';
 import AlertSummaryTable from '../components/AlertSummaryTable';
 import AlertsGrid from '../components/AlertsGrid';
 
-function Home({reportData, repo}) {
+function Home({ reportData, repo }) {
 
     // const [reportData, setReportData] = useState([]);
 
@@ -54,9 +54,11 @@ function Home({reportData, repo}) {
             {/* tabbar */}
             <RightSection>
                 <PageHead />
-                <OverviewCards data={reportData} />
-                <AlertSummaryTable data={reportData} />
-                <AlertsGrid data={reportData} />
+                <Wrapper>
+                    <OverviewCards data={reportData} />
+                    <AlertSummaryTable data={reportData} />
+                    <AlertsGrid data={reportData} />
+                </Wrapper>
             </RightSection>
         </Container>
     )
@@ -65,15 +67,19 @@ function Home({reportData, repo}) {
 const Container = styled.div`
     display: flex;
     height:100vh;
+    color:rgb(29, 36, 34);
 `
 
 const RightSection = styled.div`
     flex: 1;
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
+    background-color:rgb(243, 243, 243);
+`
+
+const Wrapper = styled.div`
     padding: 20px;
-  overflow-y: auto;
-  background-color: #fafafa;
 `
 
 export default Home;

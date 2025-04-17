@@ -5,12 +5,13 @@ function Logo(){
     return(
         <Container>
             <img src='/logo192.png' alt="logo"></img>
-            <p>Ginto</p>
+            <p>Kinyo</p>
         </Container>
     )
 }
 
 const Container = styled.div`
+    color: #444;
     padding-top:5px;
     padding-left:5px;
     width:60px;
@@ -24,7 +25,8 @@ const Container = styled.div`
     }
     p{
         font-size:24px;
-        color:#ffffff;
+        font-weight: bold;
+        color:#444;
         padding-left:20px;
         padding-right:5px;
         padding-top:5px;

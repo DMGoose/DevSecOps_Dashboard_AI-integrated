@@ -19,8 +19,9 @@ function Side(){
 }
 
 const Container = styled.div`
-      width: 220px;
-    background-color: #f5f7fa;
+    width: 220px;
+    // background-color: #679186;
+    // border-right: solid #bbd4ce 2px;
     height: 100vh;
     padding: 20px;
 `

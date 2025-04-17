@@ -3,7 +3,6 @@ import React,{useState} from'react';
 import NotFound from './pages/NotFound';
 import Home from './pages/Home';
 import ChooseRepo from './pages/ChooseRepo';
-import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 function App() {
   const [reportData, setReportData] = useState(null);

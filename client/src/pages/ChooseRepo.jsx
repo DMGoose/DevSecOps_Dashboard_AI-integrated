@@ -10,7 +10,7 @@ function ChooseRepo({ onRepoSelected }) {
       const res = await fetch(url);
       if (!res.ok) throw new Error('Report not found, the repository does not exist or the file path is wrong');
       const data = await res.json();
-      onRepoSelected(repo, data); // 传回父组件
+      onRepoSelected(repo, data); // 传回parent组件
       setError(null);
     } catch (err) {
       setError(err.message);
@@ -19,11 +19,11 @@ function ChooseRepo({ onRepoSelected }) {
 
   return (
     <div style={{ textAlign: 'center', padding: '50px' }}>
-      <h2>Please enter the GitHub Repo name</h2>
+      <h2>Please enter GitHub Username and Repo name</h2>
       <input
         type="text"
         value={repo}
-        placeholder="example：DMGoose/DVWA-T"
+        placeholder="example：Username/RepoName"
         onChange={(e) => setRepo(e.target.value)}
         style={{ width: '300px', padding: '8px', fontSize: '16px' }}
       />

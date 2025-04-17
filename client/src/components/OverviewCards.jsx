@@ -6,7 +6,17 @@ function OverviewCards({ data }) {
 
   //遍历tools并且去重
   const tools = [...new Set(data.map(item => item.tool))];
-  // 
+
+
+  //找到trivy 的 target 并且进行处理
+  const findTarget = () => {
+    const tool = data.find(item => item.tool === 'Trivy');
+    const target = tool.target;
+    //"file:///home/runner/work/WebGoat-T/WebGoat-T/" 要处理这个字符串
+    const arr = target.split('/').filter(Boolean);
+    console.log(arr);
+    return arr[arr.length - 1];
+  }
 
   const toolStats = data.map(item => ({
     tool: item.tool,
@@ -14,15 +24,24 @@ function OverviewCards({ data }) {
     count: item.results.length
   }));
 
+  const sastStats = toolStats.filter(item => item.type.includes('SAST'));
+  const scaStats = toolStats.filter(item => item.type.includes('SCA'));
+  const dastStats = toolStats.filter(item => item.type.includes('DAST'));
+
+  useEffect(() => {
+    console.log('我是overview里的data', data)
+
+  }, [])
+
   return (
     <Wrapper>
       <Card>
         <Title>Site</Title>
-        <Value>--</Value>
+        <Value>{findTarget()}</Value>
       </Card>
       <Card>
         <Title>Time</Title>
-        <Value>--</Value>
+        <Value>{data[0].timestamp}</Value>
       </Card>
       <Card>
         <Title>Tools</Title>
@@ -34,13 +53,14 @@ function OverviewCards({ data }) {
           ))}
         </Value>
       </Card>
-      <Card>
+      <Card className='wide'>
         <Title>Overall</Title>
         <Value>
           {toolStats.map((item, index) => (
-            <div key={index}>
-              <span>{item.tool}:</span> {item.count} {item.type}
-            </div>
+            <StatItem key={index}>
+              <span style={{ fontWeight: 500 }}>{item.tool}</span>
+              <span>{item.count} {item.type}</span>
+            </StatItem>
           ))}
 
         </Value>
@@ -50,37 +70,50 @@ function OverviewCards({ data }) {
 }
 
 const Wrapper = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 20px;
-  margin: 20px 0;
-  flex-wrap: wrap;
 `;
 
 const Card = styled.div`
-  box-sizing: border-box;
-  flex: 1;
-  min-width: 200px;
-  height: 100px;
-  background-color: #eaf1f9;
+background-color:rgb(230, 230, 230);
   border-radius: 12px;
   padding: 16px 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  font-size: 25px;
+  font-size: 16px;
+
+  &.wide {
+    grid-column: span 2;
+  }
 `;
 
 const Title = styled.div`
   font-size: 20px;
   font-weight: 600;
   font-weight: bold;
-  color: #333;
+  color: #444;
 `;
 
 const Value = styled.div`
-  font-size: 18px;
-  color: #111;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px 24px;
+  color: #444;
+  font-size: 15px;
+  line-height: 1.5;
+`;
+
+const StatItem = styled.div`
+  background-color:rgb(239, 240, 241);
+  border-radius: 8px;
+  padding: 6px 10px;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #333;
 `;
 
 export default OverviewCards;

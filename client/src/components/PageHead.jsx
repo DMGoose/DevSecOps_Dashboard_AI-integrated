@@ -18,17 +18,27 @@ function PageHead(){
     
     return (
         <Container>
-            <h1>Hello</h1>
+            <Hello>Hello</Hello>
             <p>{message}</p>
         </Container>
     )
 }
 
 const Container = styled.div`
-    height: 60px;
+    height: 65px;
+    padding:20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    border-radius: 6px;
+    // background-color:#679186;
+    color: #444;
+`
+
+const Hello = styled.p`
+    font-weight: bold;
+    font-size:25px;
 `
 
 export default PageHead;

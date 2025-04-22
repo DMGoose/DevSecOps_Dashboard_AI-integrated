@@ -28,11 +28,11 @@ It combines CI/CD integration, multi-tool vulnerability scanning, JSON report me
 6.Dashboard reads JSON dynamically based on user input
 
 ## How to View a Security Report
-Open the deployed dashboard: https://dev-sec-ops-dashboard-ai-integrated.vercel.app/
+1. Open the deployed dashboard: https://dev-sec-ops-dashboard-ai-integrated.vercel.app/
 
-Enter a GitHub repository name containing a merged-security-reports.json (You should use the `workflow_intotal.yml` to automatically generate this file)
+2. Enter a GitHub repository name containing a merged-security-reports.json (You should use the `workflow_intotal.yml` to automatically generate this file)
 
-Dashboard will fetch, visualize, and allow interactive exploration of vulnerabilities
+3. Dashboard will fetch, visualize, and allow interactive exploration of vulnerabilities
 
 **Note**: 
 You might need to wait a bit for the backend to fetch AI suggestions :)

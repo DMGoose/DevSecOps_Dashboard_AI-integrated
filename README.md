@@ -15,17 +15,17 @@ It combines CI/CD integration, multi-tool vulnerability scanning, JSON report me
 **It requires a prerequisite workflow**, which you can find in my DVWA-T repository:
 `.github/workflows/workflow_intotal.yml`
 
-1.Triggered on push / PR / manual
+1. Triggered on push / PR / manual
 
-2.Scans app with CodeQL, Trivy, and ZAP
+2. Scans app with CodeQL, Trivy, and ZAP
 
-3.Merges reports into a single JSON via parse_reports.py
+3. Merges reports into a single JSON via parse_reports.py
 
-4.Pushes report to /public/data/merged.json
+4. Pushes report to /public/data/merged.json
 
-5.Auto-deploys updated dashboard
+5. Auto-deploys updated dashboard
 
-6.Dashboard reads JSON dynamically based on user input
+6. Dashboard reads JSON dynamically based on user input
 
 ## How to View a Security Report
 1. Open the deployed dashboard: https://dev-sec-ops-dashboard-ai-integrated.vercel.app/

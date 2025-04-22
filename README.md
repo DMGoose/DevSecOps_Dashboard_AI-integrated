@@ -14,11 +14,17 @@ It combines CI/CD integration, multi-tool vulnerability scanning, JSON report me
 ## Workflow
 **It requires a prerequisite workflow**, which you can find in my DVWA-T repository:
 `.github/workflows/workflow_intotal.yml`
+
 1.Triggered on push / PR / manual
+
 2.Scans app with CodeQL, Trivy, and ZAP
+
 3.Merges reports into a single JSON via parse_reports.py
+
 4.Pushes report to /public/data/merged.json
+
 5.Auto-deploys updated dashboard
+
 6.Dashboard reads JSON dynamically based on user input
 
 ## How to View a Security Report
@@ -30,7 +36,9 @@ Dashboard will fetch, visualize, and allow interactive exploration of vulnerabil
 
 **Note**: 
 You might need to wait a bit for the backend to fetch AI suggestions :)
+
 The UI is still a work in progress. 
+
 The left sidebar currently contains placeholders — more features will be added soon.
 
 ## Home page

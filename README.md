@@ -12,8 +12,10 @@ It combines CI/CD integration, multi-tool vulnerability scanning, JSON report me
 -  **Extensible** for additional tools or features (e.g., login, history, export)
 
 ## Workflow
-**It requires a prerequisite workflow and an automation script**, which you can find in my (DVWA-T repo)[https://github.com/DMGoose/DVWA-T]:
+**It requires a prerequisite workflow and an automation script**, which you can find in my [DVWA-T repo](https://github.com/DMGoose/DVWA-T):
+
 **workflow**: `.github/workflows/workflow_intotal.yml` 
+
 **automation script**: `scripts/parse_reports.py`
 
 

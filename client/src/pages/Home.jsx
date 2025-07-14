@@ -55,7 +55,7 @@ function Home({ reportData, repo }) {
             <RightSection>
                 <PageHead />
                 <Wrapper>
-                    <OverviewCards data={reportData} />
+                    <OverviewCards data={reportData} repo={repo} />
                     <AlertSummaryTable data={reportData} />
                     <AlertsGrid data={reportData} />
                 </Wrapper>

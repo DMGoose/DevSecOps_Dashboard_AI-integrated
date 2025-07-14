@@ -11,7 +11,7 @@ function ChooseRepo({ onRepoSelected }) {
       const res = await fetch(url);
       if (!res.ok) throw new Error('Report not found, the repository does not exist or the file path is wrong');
       const data = await res.json();
-      onRepoSelected(repo, data); // 传回parent组件
+      onRepoSelected(repo, data); // 传回parent组件, 也就是传到App.js
       setError(null);
     } catch (err) {
       setError(err.message);

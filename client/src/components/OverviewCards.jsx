@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import React, { useEffect } from 'react';
 
-function OverviewCards({ data }) {
+function OverviewCards({ data, repo }) {
 
 
   //遍历tools并且去重
@@ -36,20 +36,21 @@ function OverviewCards({ data }) {
   return (
     <Wrapper>
       <Card>
-        <Title>Site</Title>
-        <Value>{findTarget()}</Value>
+        <Title>Repo</Title>
+        {/* <Value>{findTarget()}</Value> */}
+        <StatItem>{repo}</StatItem>
       </Card>
       <Card>
         <Title>Time</Title>
-        <Value>{data[0].timestamp}</Value>
+        <StatItem>{data[0].timestamp}</StatItem>
       </Card>
       <Card>
         <Title>Tools</Title>
         <Value>
           {tools.map((item, index) => (
-            <div key={index}>
+            <StatItem key={index}>
               {item}
-            </div>
+            </StatItem>
           ))}
         </Value>
       </Card>
@@ -58,8 +59,8 @@ function OverviewCards({ data }) {
         <Value>
           {toolStats.map((item, index) => (
             <StatItem key={index}>
-              <span style={{ fontWeight: 500 }}>{item.tool}</span>
-              <span>{item.count} {item.type}</span>
+              <span style={{ fontWeight: 500 }}>{item.tool} {item.type}</span>
+              <span>{item.count} errors </span>
             </StatItem>
           ))}
 
@@ -79,7 +80,7 @@ const Card = styled.div`
 background-color:rgb(230, 230, 230);
   border-radius: 12px;
   padding: 16px 20px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 5px rgba(0,0,0,0.25);
   display: flex;
   flex-direction: column;
   font-size: 16px;
@@ -109,6 +110,7 @@ const StatItem = styled.div`
   background-color:rgb(239, 240, 241);
   border-radius: 8px;
   padding: 6px 10px;
+  margin-top: 5px;
   box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
   display: flex;
   justify-content: space-between;

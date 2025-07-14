@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, use } from 'react';
 import styled from "styled-components";
 import RiskLevelBarChart from './RiskLevelBarChart';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, LabelList } from 'recharts';
@@ -8,6 +8,7 @@ function AlertSummaryTable({ data }) {
 
     const zapData = data.filter(item => item.tool === 'OWASP ZAP');
     const trivyData = data.filter(item => item.tool === 'Trivy');
+    const codeQLData = data.filter(item => item.tool === 'CodeQL');
 
 
     // ---- 处理不同工具的分级格式 ----
@@ -49,12 +50,25 @@ function AlertSummaryTable({ data }) {
         return counts;
       };
 
+    // 获取每个工具的风险级别统计
+    const codeQLSeverity = getSeveritySummary(codeQLData);
     const zapSeverity = getSeveritySummary(zapData);
     const trivySeverity = getSeveritySummary(trivyData);
+
+    useEffect(() => {
+        console.log('CodeQL Severity:', codeQLSeverity);
+        console.log('ZAP Severity:', zapSeverity);
+        console.log('Trivy Severity:', trivySeverity);
+    }, [codeQLSeverity, zapSeverity, trivySeverity]);
+    
 
     return (
         
         <TableWrapper>
+
+          <ChartWrapper>
+                <RiskLevelBarChart severityCounts={ codeQLSeverity} name={'CodeQL'}/>
+            </ChartWrapper>
 
             <ChartWrapper>
                 <RiskLevelBarChart severityCounts={zapSeverity} name={'Zap'} />
@@ -64,6 +78,9 @@ function AlertSummaryTable({ data }) {
             <ChartWrapper>
                 <RiskLevelBarChart severityCounts={trivySeverity} name={'Trivy'}/>
             </ChartWrapper>
+
+
+            
             {/* <Table>
                 <thead>
                     <tr>
@@ -95,12 +112,15 @@ const TableWrapper = styled.div`
   padding: 20px;
   padding-bottom: 60px;
   display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
   gap: 20px;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.25);
 `;
 
 const ChartWrapper = styled.div`
-  flex: 1;
-  min-width: 50%;
+  justify-content: space-between;
+  min-width: 33%;
   height: 250px;
 `;
 

@@ -148,8 +148,8 @@ function AlertsGrid({ data }) {
           <Cell>Type</Cell>
           <Cell>Name / CVE</Cell>
           <Cell>{
-            // sortedResults[0].component ?
-            //   <div>Component</div> : <div>CWE</div>
+            sortedResults[0].component ?
+              <div>Component</div> : <div>CWE</div>
           }</Cell>
           <Cell>Severity
             <FilterBtn
@@ -217,6 +217,7 @@ const Container = styled.div`
     background: #fefefe;
     border-radius: 10px;
     margin: 20px 0px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.25);
   `;
 
 const ToolButton = styled.div`

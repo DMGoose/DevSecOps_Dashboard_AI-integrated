@@ -46,11 +46,12 @@ The UI is still a work in progress.
 The left sidebar currently contains placeholders — more features will be added soon.
 
 ## Home page
-![image](https://github.com/user-attachments/assets/6b70810d-5069-4a98-943e-b71c6e751d73)
+<img width="1630" height="966" alt="image" src="https://github.com/user-attachments/assets/5d9001f3-c349-4736-be5a-956d17c92d16" />
+
 
 ## Vulnerability Card
 ![image](https://github.com/user-attachments/assets/fe5a55df-9bcb-4b2a-837d-49da5d8eae20)
 
-## generate suggestions
+## Generate suggestions
 ![image](https://github.com/user-attachments/assets/c5ab9e5d-5b2f-4db5-bbde-e555ecd1068f)
 

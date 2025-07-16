@@ -148,8 +148,8 @@ function AlertsGrid({ data }) {
           <Cell>Type</Cell>
           <Cell>Name / CVE</Cell>
           <Cell>{
-            sortedResults[0].component ?
-              <div>Component</div> : <div>CWE</div>
+            // sortedResults[0].component ?
+            //   <div>Component</div> : <div>CWE</div>
           }</Cell>
           <Cell>Severity
             <FilterBtn
